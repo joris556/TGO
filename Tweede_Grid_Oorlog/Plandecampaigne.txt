@@ -1,0 +1,11 @@
+﻿Gridbased ww2 strategy
+blokkerig thema
+turns
+
+armor / health / damage / armor pierce / movement
+
+Units: manneke, snipper, bazooka
+Tanks: light, medium, artillery?
+Planes?
+
+Tiles: Gras, struiken, bos, weg, huis
