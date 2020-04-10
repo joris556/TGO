@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweede_Grid_Oorlog", "Tweede_Grid_Oorlog\Tweede_Grid_Oorlog.csproj", "{1E84646C-A9AA-4D8B-8395-C246F456BB1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E84646C-A9AA-4D8B-8395-C246F456BB1B}.Debug|x86.ActiveCfg = Debug|x86
+		{1E84646C-A9AA-4D8B-8395-C246F456BB1B}.Debug|x86.Build.0 = Debug|x86
+		{1E84646C-A9AA-4D8B-8395-C246F456BB1B}.Release|x86.ActiveCfg = Release|x86
+		{1E84646C-A9AA-4D8B-8395-C246F456BB1B}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5355837F-DFCA-431F-9FE5-CA058EF03519}
+	EndGlobalSection
+EndGlobal
