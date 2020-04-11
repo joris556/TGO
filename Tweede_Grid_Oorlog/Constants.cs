@@ -6,23 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Microsoft.Xna.Framework.Content;
 
 namespace Tweede_Grid_Oorlog
 {
-    abstract class GameState
+    class Constants
     {
-
-        public GameState()
-        {
-
-        }
-
-        public abstract void Update(GameTime gt);
-
-        public abstract void HandleInput(InputHelper ih);
-
-        public abstract void Draw(GameTime gt, SpriteBatch sb);
-
+        public static Point screenSize = new Point(1080, 1920);
+        public static Vector2 tileSize = new Vector2(64, 64);
+        public static float scale = 1f;
+        
     }
 }

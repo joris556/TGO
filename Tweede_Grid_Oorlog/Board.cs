@@ -19,6 +19,7 @@ namespace Tweede_Grid_Oorlog
         public Board()
         {
             boardDimensions = new Vector2(2000, 2000);
+            gameObjects = new List<GameObject>();
         }
 
         public virtual void Update(GameTime gt)
@@ -59,8 +60,8 @@ namespace Tweede_Grid_Oorlog
             if (ih.IsKeyDown(Keys.S) || ih.IsKeyDown(Keys.Down))
                 cameraOffset.Y -= 5;
 
-            MathHelper.Clamp(cameraOffset.X, 0, boardDimensions.X - Game1.screenSize.X);
-            MathHelper.Clamp(cameraOffset.Y, 0, boardDimensions.Y - Game1.screenSize.Y);
+            MathHelper.Clamp(cameraOffset.X, 0, boardDimensions.X - Constants.screenSize.X);
+            MathHelper.Clamp(cameraOffset.Y, 0, boardDimensions.Y - Constants.screenSize.Y);
         }
     }
 }

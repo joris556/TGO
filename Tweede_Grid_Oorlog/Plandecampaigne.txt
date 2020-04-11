@@ -3,9 +3,22 @@ blokkerig thema
 turns
 
 armor / health / damage / armor pierce / movement
+range / visibility / spotting range(range x 2?) [visibility range]
 
-Units: manneke, snipper, bazooka
-Tanks: light, medium, artillery?
+
+[visibility](armor)<armor pierce>
+Units: manneke[2](1)<1>, snipper[1](1)<2>, bazooka[2](1)<5> (x3 damage tegen armor?)
+Tanks: light[3](3)<2> (x2 tegen infantry?), medium[4](5)<5>, artillery[4](2)<5>?
 Planes?
 
-Tiles: Gras, struiken, bos, weg, huis
+Visibility range = (unitVisibility / tileStealth) + 1
+Damage = AP > Armor = 100% anders AP / (Armor + 1)
+
+
+[stealth]
+Tiles: gras[0.1], struiken[2], bos[3], weg[0.1], huis[100]
+
+Map uit textfile:
+//Mapnaam
+//Breedte Hoogte
+//g s b w h

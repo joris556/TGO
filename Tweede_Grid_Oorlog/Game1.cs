@@ -8,7 +8,6 @@ namespace Tweede_Grid_Oorlog
 
     public class Game1 : Game
     {
-        public static Point screenSize = new Point(1080, 1920);
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameEnvironment gameEnvironment;
@@ -20,8 +19,8 @@ namespace Tweede_Grid_Oorlog
             Content.RootDirectory = "Content";
             graphics.SynchronizeWithVerticalRetrace = true;
             //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
-            graphics.PreferredBackBufferHeight = screenSize.X;
-            graphics.PreferredBackBufferWidth = screenSize.Y;
+            graphics.PreferredBackBufferHeight = Constants.screenSize.X;
+            graphics.PreferredBackBufferWidth = Constants.screenSize.Y;
         }
 
 
