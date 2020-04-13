@@ -12,10 +12,11 @@ namespace Tweede_Grid_Oorlog
 {
     class MenuState : GameState
     {
+        List<GameObject> gameObjects;
 
         public MenuState() : base()
         {
-
+            gameObjects = new List<GameObject>();
         }
 
         public override void Update(GameTime gt)

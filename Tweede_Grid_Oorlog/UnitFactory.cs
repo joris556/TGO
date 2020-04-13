@@ -41,6 +41,7 @@ namespace Tweede_Grid_Oorlog
             unit.Visibility = unitVars[nr, 5];
             unit.Movement = unitVars[nr, 0];
             unit.UnitClass = (nr > 2 ? UnitClass.Armored : UnitClass.Infantry);
+            unit.Spritebox = new Rectangle((int)type * 64, 0, 64, 64);
         }
 
     }

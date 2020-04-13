@@ -28,6 +28,12 @@ namespace Tweede_Grid_Oorlog
         protected bool canAttack;
         protected bool isEnemy;
 
+        //Pathfinding and moving
+        protected bool isMoving;
+        protected List<Point> pathToMove;
+        protected Vector2 currentDirection;
+        protected Vector2 currentGoal;
+
         public float Armor { get => armor; set => armor = value; }
         public float ArmorPierce { get => armorPierce; set => armorPierce = value; }
         public float Range { get => range; set => range = value; }
@@ -42,10 +48,22 @@ namespace Tweede_Grid_Oorlog
         public bool CanAttack { get => canAttack; set => canAttack = value; }
         public UnitType UnitType { get => unitType; set => unitType = value; }
         public bool IsEnemy { get => isEnemy; set => isEnemy = value; }
+        public bool IsMoving { get => isMoving; set => isMoving = value; }
+        public List<Point> PathToMove { get => pathToMove; set => pathToMove = value; }
 
         public Unit()
         {
+            sprite = Game1.AssetHelper.GetSprite("Sprites/unitPlaceholder");
+        }
 
+        public virtual void TurnReset()
+        {
+            canAttack = true;
+            movementLeft = movement;
+            if (isMoving)
+            {
+                Move();
+            }
         }
 
         public override void Draw(GameTime gt, SpriteBatch sb)
@@ -56,6 +74,10 @@ namespace Tweede_Grid_Oorlog
         public override void HandleInput(InputHelper ih)
         {
             base.HandleInput(ih);
+            if (ih.KeyPressed(Keys.Space) && isMoving)
+            {
+                MoveFast();
+            }
         }
 
         public override void Update(GameTime gt)
@@ -79,34 +101,74 @@ namespace Tweede_Grid_Oorlog
             if (u.Health <= 0)
                 u.TriggerDeath();
 
+            canAttack = false;
+
             //Animatie
         }
 
         public bool CanSee(Unit other, Board board)
         {
             float dist = Vector2.Distance(gridPosition.ToVector2(), other.GridPosition.ToVector2());
-            if (isEnemy == other.IsEnemy || dist > range * 2)
+            if (isEnemy == other.IsEnemy || dist > range * 2) // Out of range or on same team.
                 return false;
 
-            if (Math.Abs(gridPosition.X - other.GridPosition.X) == Math.Abs(gridPosition.Y - other.GridPosition.Y))
-            {
-                
-            }
-            return true;
+            float stealthRange = other.Visibility / Constants.tileStealth[(int)board.TileTypeAtPosition(other.gridPosition)] + 1f;
+            if (stealthRange < dist) //Unit is hidden
+                return false;
+
+            return board.UnobstructedLine(gridPosition, other.GridPosition);
+
         }
 
-        private List<Point> TilesOnLine(Vector2 start, Vector2 end)
+        public bool AttackInRange(Unit other, Board board)
         {
-            List<Point> ptList = new List<Point>();
-            Vector2 startTile = new Vector2((float)Math.Floor(start.X / Constants.tileSize.X), (float)Math.Floor(start.Y / Constants.tileSize.Y));
-            Vector2 direction = end - start;
-            direction.Normalize();
-            float dtx = (startTile.X * Constants.tileSize.X + Constants.tileSize.X / 2f) / direction.X;
-            float dty = (startTile.Y * Constants.tileSize.Y + Constants.tileSize.Y / 2f) / direction.Y;
+            float dist = Vector2.Distance(gridPosition.ToVector2(), other.GridPosition.ToVector2());
+            if (dist > range)
+                return false;
 
-            return ptList;
-
+            return board.UnobstructedLine(gridPosition, other.GridPosition);
         }
 
+        public virtual void MoveTo(List<Point> path)
+        {
+            isMoving = true;
+            pathToMove = path;
+            currentGoal = gridPosition.ToVector2() * Constants.tileSize;
+            currentDirection = currentGoal - position;
+            currentDirection.Normalize();
+        }
+
+        protected virtual void Move()
+        {
+            position += currentDirection * 3;
+            Vector2 dir = currentGoal - position;
+            dir.Normalize();
+            if (dir != currentDirection) //aka je bent er voorbij
+            {
+                position = currentGoal;
+                Point p = pathToMove[0];
+                pathToMove.RemoveAt(0);
+                if (pathToMove.Count == 0)
+                {
+                    isMoving = false;
+                    gridPosition = p;
+                    return;
+                }
+
+                currentGoal = pathToMove[0].ToVector2() * Constants.tileSize;
+                currentDirection = currentGoal - position;
+                currentDirection.Normalize();
+            }
+        }
+
+        public void MoveFast()
+        {
+            if (pathToMove.Count > 0)
+            {
+                Point end = pathToMove[PathToMove.Count - 1];
+                gridPosition = end;
+                position = end.ToVector2() * Constants.tileSize;
+            }
+        }
     }
 }

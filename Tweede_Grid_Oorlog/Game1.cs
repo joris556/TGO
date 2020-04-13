@@ -12,15 +12,19 @@ namespace Tweede_Grid_Oorlog
         SpriteBatch spriteBatch;
         GameEnvironment gameEnvironment;
         InputHelper inputHelper;
+        static AssetHelper assetHelper;
+        internal static AssetHelper AssetHelper { get => assetHelper; }
 
         public Game1()
         {
+            this.IsMouseVisible = true;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.SynchronizeWithVerticalRetrace = true;
             //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
-            graphics.PreferredBackBufferHeight = Constants.screenSize.X;
-            graphics.PreferredBackBufferWidth = Constants.screenSize.Y;
+            graphics.PreferredBackBufferHeight = Constants.screenSize.Y;
+            graphics.PreferredBackBufferWidth = Constants.screenSize.X;
+            assetHelper = new AssetHelper(Content);
         }
 
 
@@ -49,6 +53,7 @@ namespace Tweede_Grid_Oorlog
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            inputHelper.Update(gameTime);
             gameEnvironment.HandleInput(inputHelper);
             gameEnvironment.Update(gameTime);
 

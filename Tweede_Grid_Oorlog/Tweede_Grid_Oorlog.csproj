@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArmoredUnit.cs" />
+    <Compile Include="AssetHelper.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Game1.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="GameState.cs" />
     <Compile Include="InfantryUnit.cs" />
     <Compile Include="InputHelper.cs" />
+    <Compile Include="MapParser.cs" />
     <Compile Include="MenuState.cs" />
     <Compile Include="PlayingState.cs" />
     <Compile Include="Program.cs" />
