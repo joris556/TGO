@@ -106,6 +106,9 @@ namespace Tweede_Grid_Oorlog
                     List<Point> path = FindPath(selectedUnit.GridPosition, AdjustedMousePosition(ih.MousePosition));
                     selectedUnit.MoveTo(path);
                 }
+
+                selectedUnit = null;
+                possibleMoves = null;
             }
         }
 
@@ -116,7 +119,7 @@ namespace Tweede_Grid_Oorlog
             if (possibleMoves != null)
                 if (possibleMoves.Count > 0)
                     foreach (Point p in possibleMoves)
-                        sb.Draw(tiles, p.ToVector2() * Constants.tileSize, new Rectangle(0,0,64,64), Color.Red);
+                        sb.Draw(tiles, p.ToVector2() * Constants.tileSize + cameraOffset, new Rectangle(0,0,64,64), Color.Red);
 
             foreach (GameObject g in gameObjects)
                 g.Draw(gt, sb);
@@ -236,6 +239,9 @@ namespace Tweede_Grid_Oorlog
                 List<Point> nb = Neighbours(check, allowForest);
                 foreach (Point p in nb)
                 {
+                    if (closedlist.Contains(p))
+                        continue;
+
                     if (openlist.Contains(p))
                     {
                         if (cost[check] + 1f < cost[p])
@@ -294,6 +300,9 @@ namespace Tweede_Grid_Oorlog
                 List<Point> nb = Neighbours(check, allowForest);
                 foreach (Point p in nb)
                 {
+                    if (closedlist.Contains(p))
+                        continue;
+
                     if (openlist.Contains(p))
                     {
                         if (cost[check] + 1f < cost[p])

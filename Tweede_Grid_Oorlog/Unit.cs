@@ -33,6 +33,7 @@ namespace Tweede_Grid_Oorlog
         protected List<Point> pathToMove;
         protected Vector2 currentDirection;
         protected Vector2 currentGoal;
+        protected Point gridGoal;
 
         public float Armor { get => armor; set => armor = value; }
         public float ArmorPierce { get => armorPierce; set => armorPierce = value; }
@@ -62,7 +63,7 @@ namespace Tweede_Grid_Oorlog
             movementLeft = movement;
             if (isMoving)
             {
-                Move();
+                MoveFast();
             }
         }
 
@@ -82,6 +83,9 @@ namespace Tweede_Grid_Oorlog
 
         public override void Update(GameTime gt)
         {
+            if (isMoving)
+                Move();
+
             base.Update(gt);
         }
 
@@ -140,25 +144,28 @@ namespace Tweede_Grid_Oorlog
 
         protected virtual void Move()
         {
-            position += currentDirection * 3;
-            Vector2 dir = currentGoal - position;
-            dir.Normalize();
-            if (dir != currentDirection) //aka je bent er voorbij
+            //Vector2 dir = currentGoal - position;
+            //dir.Normalize();
+            //if (dir != currentDirection) //aka je bent er voorbij
+            if (Vector2.Distance(currentGoal, position) < 3f)
             {
-                position = currentGoal;
-                Point p = pathToMove[0];
-                pathToMove.RemoveAt(0);
                 if (pathToMove.Count == 0)
                 {
                     isMoving = false;
-                    gridPosition = p;
+                    gridPosition = gridGoal;
+                    SetGridAndAdjust(gridGoal);
                     return;
                 }
 
-                currentGoal = pathToMove[0].ToVector2() * Constants.tileSize;
+                position = currentGoal;
+                gridGoal = pathToMove[0];
+                pathToMove.RemoveAt(0);
+
+                currentGoal = gridGoal.ToVector2() * Constants.tileSize;
                 currentDirection = currentGoal - position;
                 currentDirection.Normalize();
             }
+            position += currentDirection * 3;
         }
 
         public void MoveFast()
@@ -167,6 +174,7 @@ namespace Tweede_Grid_Oorlog
             {
                 Point end = pathToMove[PathToMove.Count - 1];
                 gridPosition = end;
+                SetGridAndAdjust(end);
                 position = end.ToVector2() * Constants.tileSize;
             }
         }
