@@ -22,3 +22,24 @@ Map uit textfile:
 //Mapnaam
 //Breedte Hoogte
 //g s b w h
+
+
+TODO:
+Pathfinding /
+Line of sight <
+Moves and out of moves
+Shooting (kogel die vliegt)
+Turns
+AI -> Shooting things in range
+AI -> Moving then shooting in range
+Sprites
+TileSprites
+Menu
+--- Speelbaar Klaar ---
+Particles
+Meer Tiles
+Turret die draait (smooth)
+Meer units
+[evt. Efficientere Line of sight]
+[evt. AI -> Heatmap]
+[evt. AI -> uberhaupt moven]
